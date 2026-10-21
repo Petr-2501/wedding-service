@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Service</title>
+<meta name="description" content="Wedding Effects: весільні спецефекти в Чернівцях, Львові та Івано-Франківську — холодні фонтани, важкий дим, кольорові спалахи.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#0B0B0D;--bg2:#121216;--bg3:#19191E;--gold:#C9A15D;--gold-l:#E5C388;--gold-d:#9D773C;--ivory:#F4F0E8;--muted:#9B9A9A;
+--line:rgba(201,161,93,.2);--line-h:rgba(201,161,93,.5);
+--ease:cubic-bezier(.16,1,.3,1);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;
+--card-h:clamp(260px,42vw,440px);
+color-scheme:dark}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ivory);font-family:var(--sans);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+section{padding:7rem 0;position:relative}
+
+/* Section heading system */
+.sec-head{margin-bottom:3.5rem}
+.sec-num{display:block;font-size:.72rem;letter-spacing:.3em;color:var(--gold);font-weight:500}
+.sec-tag{display:block;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin:.4rem 0 1rem}
+.sec-title{font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.1;letter-spacing:-.01em}
+.sec-title::after{content:'';display:block;width:56px;height:1px;background:var(--gold);margin-top:1.4rem}
+.sec-sub{color:var(--muted);font-weight:300;max-width:560px;margin-top:1.2rem}
+
+/* Logo (header + footer identical) */
+.logo{display:inline-flex;align-items:center;gap:.9rem;text-decoration:none}
+/* ===== WEDDING RINGS LOGO ===== */
+.logo-rings{
+    position:relative;flex:none;width:56px;height:38px;
+    filter:drop-shadow(0 2px 5px rgba(0,0,0,.6)) drop-shadow(0 0 7px rgba(201,161,93,.35));
+    animation:ringsFloat 7s ease-in-out infinite;
+    transition:transform .8s var(--ease);
+}
+@keyframes ringsFloat{0%,100%{translate:0 0}50%{translate:0 -2px}}
+.logo:hover .logo-rings{transform:scale(1.08) rotate(-3deg)}
+.spark{transform-box:fill-box;transform-origin:center;opacity:0;animation:spark 4.5s ease-in-out infinite}
+@keyframes spark{0%,60%,100%{opacity:0;transform:scale(.4)}75%{opacity:1;transform:scale(1.2)}}
+@media(max-width:480px){.logo-rings{width:38px;height:26px}}
+
+.logo-txt{display:flex;flex-direction:column;line-height:1}
+.logo-txt b{font-family:var(--serif);font-weight:500;font-size:2rem;letter-spacing:.3em;color:var(--ivory);padding-left:.05em;white-space:nowrap}
+.logo-txt small{font-size:.60rem;letter-spacing:.46em;text-transform:uppercase;color:var(--gold);margin-top:.35rem;white-space:nowrap}
+.logo-cities{letter-spacing:.2em}
+
+/* Buttons */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;padding:1rem 2.2rem;border-radius:50px;font:500 .8rem var(--sans);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .6s var(--ease),box-shadow .6s var(--ease),background .6s var(--ease),border-color .6s var(--ease)}
+.btn-primary{background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#17130c;font-weight:600;box-shadow:0 10px 28px rgba(0,0,0,.4)}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.4) 50%,transparent 65%);transform:translateX(-120%);animation:shine 6s ease-in-out infinite}
+@keyframes shine{0%,70%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(201,161,93,.28)}
+.btn-ghost{background:rgba(255,255,255,.03);color:var(--ivory);border-color:var(--line-h);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-ghost:hover{border-color:var(--gold);box-shadow:0 0 24px rgba(201,161,93,.18);transform:translateY(-3px)}
+
+/* Reveal: uses `translate` + opacity, so it never conflicts with tilt `transform` */
+.reveal{opacity:0;translate:0 28px;transition:opacity 1s var(--ease),translate 1s var(--ease)}
+.reveal.in{opacity:1;translate:0 0}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* Header */
+.header{position:fixed;inset:0 0 auto 0;z-index:1000;padding:1.6rem 0;transition:padding .6s var(--ease),background .6s var(--ease),backdrop-filter .6s var(--ease);}
+
+.header::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:linear-gradient(to bottom,rgba(11,11,13,.6),transparent);
+    transition:background .6s var(--ease),backdrop-filter .6s var(--ease);
+}
+
+.header::after{
+    content:'';
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:1px;
+    opacity:0;
+    background:linear-gradient(90deg,transparent,var(--gold-d),var(--gold-l),var(--gold-d),transparent);
+    background-size:200% 100%;
+    animation:shimmer 9s ease-in-out infinite;
+    transition:opacity .6s;
+}
+@keyframes shimmer{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.header.scrolled{padding:.9rem 0}
+.header.scrolled::before{background:rgba(11,11,13,.82);
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.header.scrolled::after{opacity:.8}
+.header .container{display:flex;align-items:center;justify-content:space-between;max-width:none;padding:0 clamp(1.5rem,4vw,4rem)}
+.nav{display:flex;list-style:none;gap:clamp(1.4rem,2.4vw,2.6rem)}
+.nav a{position:relative;text-decoration:none;font-size:.92rem;letter-spacing:.16em;text-transform:uppercase;color:#cfcbc2;padding:.3rem 0;transition:color .5s var(--ease)}
+.nav a::after{content:'';position:absolute;left:0;bottom:-2px;width:100%;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.nav a:hover,.nav a.active{color:var(--gold-l)}
+.nav a:hover::after,.nav a.active::after{transform:scaleX(1)}
+.burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:6px;padding:.5rem}
+.burger span{width:26px;height:1px;background:var(--ivory);transition:transform .5s var(--ease),opacity .3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Hero */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:8rem 0 6rem;isolation:isolate}
+/* На телефоні — фіксована висота, щоб адресний рядок не "стрибав" */
+@media(max-width:768px){
+    .hero{min-height:100svh;height:auto;padding:7rem 0 5rem}
+}
+.hero-bg{position:absolute;inset:-6%;z-index:-3;translate:var(--px,0) var(--py,0);transition:translate 1.4s var(--ease)}
+.hero-bg img{width:100%;height:100%;object-fit:cover;animation:slowzoom 32s ease-in-out infinite alternate}
+@keyframes slowzoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+.hero-shade{position:absolute;inset:0;z-index:-2;background:
+radial-gradient(ellipse at 30% 45%,rgba(201,161,93,.08),transparent 55%),
+radial-gradient(ellipse at center,transparent 35%,rgba(11,11,13,.75) 100%),
+linear-gradient(90deg,rgba(11,11,13,.92) 0%,rgba(11,11,13,.65) 45%,rgba(11,11,13,.25) 100%),
+linear-gradient(to bottom,rgba(11,11,13,.35),rgba(11,11,13,.2) 40%,var(--bg) 100%)}
+.hero-sweep{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(229,195,136,.07) 50%,transparent 60%);transform:translateX(-100%);animation:sweep 14s ease-in-out infinite}
+@keyframes sweep{0%,30%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.hero-grain{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero-content{max-width:680px}
+.hero-brand{font-size:.72rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.hero-brand b{display:block;font:500 clamp(1.1rem,2vw,1.3rem)/1 var(--serif);letter-spacing:.5em;color:var(--ivory);margin-bottom:.6rem}
+.hero-title{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(1.8rem,6vw,6.6rem);
+    line-height:1.02;
+    letter-spacing:-.015em;
+    margin-bottom:1.8rem;
+    white-space:normal;
+    text-wrap:balance;
+}
+
+.gold-text {
+    font-style: italic;
+    background: linear-gradient(120deg, var(--ivory) 0%, var(--gold-l) 45%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* white-space: nowrap; — не потрібно, успадкується від .hero-title */
+}
+.hero-desc{color:#d6d2c9;font-weight:300;font-size:clamp(1rem,1.6vw,1.15rem);max-width:520px;margin-bottom:2.6rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-content>*{opacity:0;translate:0 22px;animation:rise 1.3s var(--ease) forwards}
+.hero-content>:nth-child(1){animation-delay:.2s}.hero-content>:nth-child(2){animation-delay:.4s}.hero-content>:nth-child(3){animation-delay:.6s}.hero-content>:nth-child(4){animation-delay:.8s}
+@keyframes rise{to{opacity:1;translate:0 0}}
+.scroll-cue{position:absolute;bottom:2rem;left:50%;translate:-50% 0;width:1px;height:56px;background:linear-gradient(var(--gold),transparent);opacity:.6}
+
+/* Cards */
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}
+.card{position:relative;overflow:visible;background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:6px;transition:transform .5s var(--ease),border-color .6s var(--ease),box-shadow .6s var(--ease),opacity 1s var(--ease),translate 1s var(--ease);will-change:transform}
+.card::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(201,161,93,.09),transparent 45%)}
+.card::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:100%;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .8s var(--ease)}
+.card:hover{border-color:var(--line-h);box-shadow:0 26px 60px rgba(0,0,0,.5)}
+.card:hover::before{opacity:1}.card:hover::after{transform:scaleX(1)}
+.svc-visual{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom:1px solid var(--line);background:var(--bg3)}
+.svc-visual img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    cursor:default;
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-drag:none;
+    transition:transform .8s var(--ease),filter .8s var(--ease);
+    filter:brightness(.92) contrast(1.03);
+}.card:hover .svc-visual img{transform:scale(1.04);filter:brightness(1.02) contrast(1.03)}
+.svc-visual::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(11,11,13,.4) 0%,transparent 60%);transition:opacity .6s var(--ease)}
+.card:hover .svc-visual::after{opacity:.15}
+.svc-body{padding:1.8rem 1.6rem 2.1rem}
+.svc-body h3{font-family:var(--serif);font-weight:500;font-size:1.65rem;margin-bottom:.7rem}
+.svc-body p{color:var(--muted);font-size:.92rem;font-weight:300}
+
+/* Carousel */
+.carousel{position:relative;height:var(--card-h);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.carousel:active{cursor:grabbing}
+.carousel.dragging{touch-action:none;cursor:grabbing}
+.slide{position:absolute;left:50%;top:0;width:min(62vw,680px);height:100%;margin-left:calc(min(62vw,680px)/-2);border-radius:6px;overflow:hidden;border:1px solid rgba(201,161,93,.12);background:var(--bg3);box-shadow:0 30px 70px rgba(0,0,0,.7);transition:transform .9s var(--ease),opacity .9s var(--ease),filter .9s var(--ease),border-color .9s;will-change:transform,opacity}
+.slide.drag{transition:none}
+.slide img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.slide.active{border-color:rgba(229,195,136,.55);box-shadow:0 34px 80px rgba(0,0,0,.8),0 0 0 6px rgba(11,11,13,.9),0 0 0 7px rgba(201,161,93,.28);cursor:zoom-in}
+.c-btn{position:absolute;top:50%;translate:0 -50%;z-index:50;width:50px;height:50px;border-radius:50%;background:rgba(11,11,13,.6);border:1px solid var(--line-h);color:var(--ivory);font-size:1.5rem;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .5s,border-color .5s,color .5s}
+.c-btn:hover{background:rgba(201,161,93,.18);border-color:var(--gold);color:var(--gold-l)}
+.c-prev{left:1rem}.c-next{right:1rem}
+.c-foot{display:flex;flex-direction:column;align-items:center;margin-top:3rem;text-align:center}
+.c-bar{width:220px;height:1px;background:rgba(255,255,255,.12);position:relative;overflow:hidden}
+.c-bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold);transition:width .8s var(--ease)}
+.c-cap{margin-top:1.6rem;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold)}
+.c-cap span{display:block;margin-top:.5rem;font:italic 400 1.15rem var(--serif);letter-spacing:.02em;text-transform:none;color:var(--muted)}
+
+/* Photo modal */
+.modal{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:1.5rem}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(6,6,8,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);animation:fade .6s var(--ease)}
+.modal img{position:relative;max-width:92vw;max-height:86vh;object-fit:contain;border-radius:4px;border:1px solid rgba(201,161,93,.3);box-shadow:0 40px 100px rgba(0,0,0,.8);animation:zoomin .8s var(--ease)}
+.modal-x{position:fixed;top:1.4rem;right:1.6rem;z-index:2;width:46px;height:46px;border-radius:50%;background:none;border:1px solid var(--line-h);color:var(--ivory);font-size:1.6rem;line-height:1;cursor:pointer;transition:transform .6s var(--ease),border-color .4s,color .4s}
+.modal-x:hover{transform:rotate(90deg);border-color:var(--gold);color:var(--gold-l)}
+@keyframes fade{from{opacity:0}}
+@keyframes zoomin{from{opacity:0;transform:scale(.94)}}
+
+/* Pricing */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.6rem;align-items:stretch}
+.price{display:flex;flex-direction:column;padding:2.8rem 2.3rem}
+.price.pop{border-color:var(--gold);background:linear-gradient(180deg,rgba(201,161,93,.1),rgba(18,18,22,.9));scale:1.03}
+.badge{position:absolute;top:0;right:1.6rem;translate:0 -50%;background:linear-gradient(120deg,var(--gold-d),var(--gold-l),var(--gold),var(--gold-l),var(--gold-d));background-size:250% 100%;color:#17130c;font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.2rem;letter-spacing:.06em;text-transform:none;padding:.5rem 1.5rem;border-radius:50px;box-shadow:0 0 18px rgba(201,161,93,.45);animation:badgePulse 2.8s ease-in-out infinite,badgeShine 5s linear infinite}
+@keyframes badgePulse{0%,100%{opacity:1;box-shadow:0 0 12px rgba(201,161,93,.35)}50%{opacity:.85;box-shadow:0 0 28px rgba(229,195,136,.8)}}
+@keyframes badgeShine{0%{background-position:0% 0}100%{background-position:250% 0}}.price-kind{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.5rem;letter-spacing:.04em;text-transform:none;color:var(--gold-l)}
+.price h3{font-family:var(--serif);font-weight:500;font-size:2.1rem;margin:.4rem 0 1.6rem}
+.price-val{font-family:var(--serif);font-size:3.2rem;line-height:1;color:var(--gold-l);margin-bottom:.3rem}
+.price-val small{font:300 .85rem var(--sans);color:var(--muted);margin-left:.5rem}
+.price ul{list-style:none;margin:1.8rem 0 2.4rem;padding-top:1.8rem;border-top:1px solid var(--line);flex:1}
+.price li{display:flex;gap:.8rem;color:#c9c5bc;font-size:.92rem;font-weight:300;margin-bottom:.85rem}
+.price li::before{content:'';flex:none;width:5px;height:5px;margin-top:.62em;border:1px solid var(--gold);transform:rotate(45deg)}
+
+/* Testimonials */
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:3rem}
+.quote{position:relative;padding-top:3.4rem}
+.quote::before{content:'“';position:absolute;top:-.6rem;left:-.2rem;font:italic 400 6.5rem/1 var(--serif);color:var(--gold);opacity:.4}
+.quote p{font:italic 400 1.35rem/1.5 var(--serif);color:var(--ivory)}
+.quote hr{width:36px;border:0;height:1px;background:var(--gold);margin:1.6rem 0 1rem}
+.quote b{display:block;font-weight:500;font-size:.85rem;letter-spacing:.1em}
+.quote small{color:var(--muted);font-size:.78rem}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.15fr;gap:5rem;padding:4.5rem;background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.008));border:1px solid var(--line);border-radius:8px;position:relative;overflow:hidden}
+.contact::before{content:'';position:absolute;top:-40%;right:-15%;width:520px;height:520px;background:radial-gradient(circle,rgba(201,161,93,.08),transparent 70%);pointer-events:none}
+.contact-title{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3.6vw,3rem);line-height:1.12;margin-bottom:1.4rem}
+.contact-lead{color:var(--muted);font-weight:300;margin-bottom:2.6rem}
+.c-item{padding-left:1.2rem;border-left:1px solid var(--line-h);margin-bottom:1.6rem}
+.c-item small{display:block;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
+.c-item a,.c-item span{text-decoration:none;font-size:1.05rem}
+.c-item a:hover{color:var(--gold-l)}
+form{display:flex;flex-direction:column;gap:1.3rem;position:relative}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem}
+.fg{display:flex;flex-direction:column;gap:.5rem}
+.fg label{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.fi{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);border-radius:0;padding:.7rem 0;color:var(--ivory);font:300 1rem var(--sans);transition:border-color .5s var(--ease),background .5s;color-scheme:dark}
+.fi::placeholder{color:#666}
+.fi:hover{border-color:rgba(201,161,93,.5)}
+.fi:focus{outline:none;border-color:var(--gold);background:rgba(201,161,93,.04)}
+select.fi option{background:var(--bg2);color:var(--ivory)}
+textarea.fi{resize:vertical;min-height:90px}
+select.fi.highlight{border-color:var(--gold);animation:glow 1.2s ease 2}
+@keyframes glow{50%{box-shadow:0 8px 24px -8px rgba(201,161,93,.6)}}
+.note{color:#6f6f73;font-size:.74rem;text-align:center}
+.alert{display:none;padding:1rem;border:1px solid var(--gold);border-radius:4px;text-align:center;font-size:.92rem}
+
+/* Footer */
+footer{padding:5rem 0 2.5rem;border-top:1px solid var(--line);text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.35))}
+footer .logo{margin-bottom:1.6rem}
+.f-quote{font:italic 400 1.3rem var(--serif);color:var(--muted);margin-bottom:2rem}
+.social{display:flex;gap:2rem;justify-content:center;margin-bottom:3rem;flex-wrap:wrap}
+.social a{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .5s}
+.social a:hover{color:var(--gold-l)}
+.copy{font-size:.75rem;color:#5f5f64;padding-top:2rem;border-top:1px solid rgba(255,255,255,.05)}
+
+/* Responsive */
+@media(max-width:992px){.price.pop{scale:1}.contact{grid-template-columns:1fr;gap:3rem;padding:3rem 2rem}}
+@media(max-width:1200px){
+.burger{display:flex;z-index:1002}
+.nav{position:fixed;top:0;right:0;height:100vh;height:100dvh;width:78%;max-width:320px;flex-direction:column;gap:1.8rem;padding:7rem 2rem 2rem;background:var(--bg2);border-left:1px solid var(--line);translate:100% 0;transition:translate .7s var(--ease);z-index:1001}
+.nav.open{translate:0 0}
+.nav a{font-size:.9rem}
+.logo-cities{display:none}
+}
+@media(max-width:768px){
+section{padding:5rem 0}
+.logo-txt b{font-size:clamp(1rem,4.6vw,1.5rem);letter-spacing:.2em}
+.logo-txt small{font-size:clamp(.52rem,2.2vw,.66rem);letter-spacing:.3em}
+.row{grid-template-columns:1fr}
+.slide{width:84vw;margin-left:-42vw}
+.c-btn{width:40px;height:40px;font-size:1.2rem}.c-prev{left:.4rem}.c-next{right:.4rem}
+.sec-head{margin-bottom:2.5rem}
+.hero-grain{display:none}
+}
+@media (max-width: 480px) {
+    .hero-btns .btn { width: 100%; }
+    .hero-title { font-size: clamp(1.5rem, 7vw, 2.2rem); white-space: normal; }
+    .c-bar { width: 160px; }
+}
+@media(max-width:360px){
+.logo{gap:.6rem}
+.logo-rings{width:32px;height:22px}
+.logo-txt b{font-size:.95rem;letter-spacing:.16em}
+.logo-txt small{letter-spacing:.2em}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+.reveal,.hero-content>*{opacity:1;translate:0 0}
+html{scroll-behavior:auto}
+}
+/* ============================================================
+   ФІКС ЧОРНИХ ПОЛІВ ПРИ СВАЙПІ
+   ============================================================ */
+
+/* Прибираємо bounce-скрол за межі сторінки */
+html, body{
+    width:100%;
+    max-width:100%;
+    overflow-x:clip;
+    overscroll-behavior-x:contain;
+    position:relative;
+    background:var(--bg);
+    touch-action:pan-y pinch-zoom;
+}
+/* Карусель — щоб слайди не вилазили за межі */
+.carousel{
+    overflow:hidden;
+}
+
+/* Hero — щоб паралакс-фон не вилазив */
+.hero{
+    overflow:hidden;
+}
+/* ===== 3D ЕФЕКТ ТА СВІТІННЯ ДЛЯ КОНТАКТІВ ===== */
+.contact {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+
+/* Світіння, що слідує за курсором */
+.contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .5s;
+    background: radial-gradient(800px circle at var(--mx, 50%) var(--my, 50%), rgba(201, 161, 93, 0.1), transparent 40%);
+    z-index: 0;
+    border-radius: 8px; /* Такий самий, як у .contact */
+}
+
+.contact:hover::before {
+    opacity: 1;
+}
+
+.contact:hover {
+    border-color: var(--line-h);
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Піднімаємо вміст контакту над фоном при 3D-ефекті */
+.contact > div,
+.contact > form {
+    transform: translateZ(0);
+    transition: transform 0.5s var(--ease);
+    position: relative;
+    z-index: 1; /* Щоб текст і форма були над світінням */
+}
+
+.contact:hover > div,
+.contact:hover > form {
+    transform: translateZ(20px);
+}
+</style>
+</head>
+<body>
+
+<header class="header" id="header">
+<div class="container">
+<a href="#hero" class="logo" aria-label="Wedding Service">
+    <span class="logo-rings"><span class="ring-a">
+    </span><span class="ring-b"></span></span><span class="logo-txt"><b>WEDDING SERVICE</b>
+<small>Wedding Effects<span class="logo-cities"> · Чернівці · Львів · Івано-Франківськ</span></small>    </span></a>
+<button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
+<ul class="nav" id="nav">
+<li><a href="#services">Послуги</a></li>
+<li><a href="#gallery">Галерея</a></li>
+<li><a href="#prices">Ціни</a></li>
+<li><a href="#reviews">Відгуки</a></li>
+<li><a href="#contact">Контакти</a></li>
+</ul>
+</div>
+</header>
+
+<section class="hero" id="hero">
+<div class="hero-bg" id="heroBg"><img src="images/hero-photo.jpeg" alt="Весільне фото Wedding Service" width="1920" height="1280" fetchpriority="high"></div>
+<div class="hero-shade"></div><div class="hero-sweep"></div><div class="hero-grain"></div>
+<div class="container">
+<div class="hero-content">
+<div class="hero-brand"><b>WEDDING SERVICE</b>Wedding Effects · Luxury Wedding Production</div>
+<h1 class="hero-title">Магія <span class="gold-text">вашого&nbsp;дня</span></h1>
+<p class="hero-desc">Перетворюємо ваше весілля на незабутнє видовище. Холодні фонтани, важкий дим і кольорові спалахи створюють атмосферу магії, де кожна мить стає особливою.</p>
+<div class="hero-btns">
+<a href="#contact" class="btn btn-primary">Замовити ефекти</a>
+<a href="#gallery" class="btn btn-ghost">Дивитись галерею</a>
+</div>
+</div>
+</div>
+<div class="scroll-cue"></div>
+</section>
+
+<section id="services">
+<div class="container">
+<div class="sec-head reveal">
+    <h2 class="sec-title">Все для ідеального свята</h2><p class="sec-sub">Luxury Wedding Effects — бездоганне поєднання естетики, професійного обладнання та майстерності. Створюємо вишукані спецефекти, що перетворюють найважливіші миті вашого весілля на справжню магію. </p></div>
+<div class="grid-4">
+<article class="card tilt reveal">
+<div class="svc-visual"><img src="images/service-fountains.jpg" alt="Холодні фонтани" loading="lazy"></div>
+<div class="svc-body"><h3>Холодні фонтани</h3><p>Холодні фонтани — сяйво особливих моментів. Елегантні каскади іскор, що підкреслюють найважливіші миті вашого весілля, додаючи святу розкоші, емоцій та незабутнього візуального ефекту.</p></div>
+</article>
+<article class="card tilt reveal d1">
+<div class="svc-visual"><img src="images/service-smoke.jpg" alt="Важкий дим" loading="lazy"></div>
+<div class="svc-body"><h3>Важкий дим</h3><p>Важкий дим — перший танець серед хмар. Витончений ефект, що огортає молодят легкою хмарою, додаючи кожному руху магії, а моменту — особливої елегантності. </p></div>
+</article>
+<article class="card tilt reveal d2">
+<div class="svc-visual"><img src="images/service-colors.jpg" alt="Кольорові спалахи" loading="lazy"></div>
+<div class="svc-body"><h3>Кольорові спалахи</h3><p>Кольорові спалахи — емоції у світлі. Ефектні світлові акценти, що наповнюють свято динамікою, підкреслюють найяскравіші моменти та створюють атмосферу справжнього весільного шоу.</p></div>
+</article>
+<article class="card tilt reveal d3">
+<div class="svc-visual"><img src="images/service-bengal.jpg" alt="Бенгальські вогні" loading="lazy"></div>
+<div class="svc-body"><h3>Бенгальські вогні</h3><p>Романтичний живий коридор із бенгальських вогнів для виходу молодят. Ваші гості стають частиною шоу.</p></div>
+</article>
+</div>
+</div>
+</section>
+
+<section id="gallery">
+<div class="container">
+<div class="sec-head reveal"><h2 class="sec-title">Наші роботи</h2></div>
+<div class="reveal">
+<div class="carousel" id="carousel">
+<div class="slide"><img src="images/photo-9.jpeg" alt="Холодні вогні" loading="lazy"></div>
+<div class="slide"><img src="images/photo-1.jpeg" alt="Холодні вогні" loading="lazy"></div>
+<div class="slide"><img src="images/photo-3.jpeg" alt="Холодні вогні" loading="lazy"></div>
+<div class="slide"><img src="images/photo-6.jpg" alt="Холодні вогні" loading="lazy"></div>
+<div class="slide"><img src="images/photo-7.jpg" alt="Важкий дим" loading="lazy"></div>
+<button class="c-btn c-prev" id="prev" type="button" aria-label="Попередній слайд">&lsaquo;</button>
+<button class="c-btn c-next" id="next" type="button" aria-label="Наступний слайд">&rsaquo;</button>
+</div>
+<div class="c-foot"><div class="c-bar"><i id="bar"></i></div><div class="c-cap">Наше завдання<span>Справжні весілля. Справжні емоції. Справжня атмосфера.</span></div></div>
+</div>
+</div>
+</section>
+
+<div class="modal" id="modal" aria-hidden="true" aria-modal="true" role="dialog">
+<div class="modal-bg" data-close></div>
+<button class="modal-x" type="button" data-close aria-label="Закрити">&times;</button>
+<img src="" alt="Перегляд фото" id="modalImg">
+</div>
+
+<section id="prices">
+<div class="container">
+<div class="sec-head reveal"><h2 class="sec-title">Пакети послуг</h2></div>
+<div class="grid-3">
+<article class="card tilt price reveal">
+<span class="price-kind">Базовий</span><h3>Романтик</h3>
+<div class="price-val">8 000<small>грн / за захід</small></div>
+<ul><li>Холодні фонтани (4 шт.)</li>
+    <li>Важкий дим</li>
+    <li>Професійний супровід спеціаліста</li>
+    </ul>
+<a href="#contact" class="btn btn-ghost" data-package="Романтик — від 8 000 грн">Замовити</a>
+</article>
+<article class="card tilt price pop reveal d1">
+<span class="badge">Популярний</span>
+<span class="price-kind">Рекомендований</span><h3>Казка</h3>
+<div class="price-val">14 800<small>грн / за захід</small></div>
+<ul><li>Холодні фонтани (4 шт.)</li>
+    <li>Важкий дим</li>
+    <li>Кольорові спалахи на виїзну церемонію (3 шт.)</li>
+    <li>Професійний супровід спеціаліста</li>
+    </ul>
+<a href="#contact" class="btn btn-primary" data-package="Казка — від 14 800 грн">Замовити</a>
+</article>
+<article class="card tilt price reveal d2">
+<span class="price-kind">Преміум</span><h3>Гранд-шоу</h3>
+<div class="price-val">20 500<small>грн / за захід</small></div>
+<ul><li>Холодні фонтани (6 шт.)</li>
+<li>Важкий дим</li>
+    <li>Кольорові спалахи (5 шт.)</li>
+      <li>Професійний супровід спеціаліста</li>
+    </ul>
+<a href="#contact" class="btn btn-ghost" data-package="Гранд-шоу — від 20 500 грн">Замовити</a>
+</article>
+</div>
+</div>
+</section>
+
+<section id="reviews">
+<div class="container">
+<div class="sec-head reveal"><span class="sec-tag">Відгуки</span><h2 class="sec-title">Кажуть наші клієнти</h2></div>
+<div class="quotes">
+<figure class="quote tilt reveal"><p>Замовляли холодні фонтани на перший танець — гості були в захваті! Усе пройшло ідеально, хлопці приїхали завчасно й встановили без зайвого клопоту.</p><hr><b>Оксана та Михайло</b><small>Весілля · Червень 2024</small></figure>
+<figure class="quote tilt reveal d1"><p>Замовили пакет «Казка» Холодні фонтани виглядали неймовірно, а важкий дим зробив наш перший танець справді казковим. Окреме дякую спеціалісту за професійний супровід, пунктуальність і спокій — усе було чітко та без зайвих турбот. Емоції й фотографії залишаться з нами надовго! </p><hr><b>Юлія та Андрій</b><small>Весілля · Вересень 2024</small></figure>
+<figure class="quote tilt reveal d2"><p>ВЗамовили «Гранд-шоу» на наше весілля й залишилися дуже задоволені! Холодні фонтани створили неймовірний ефект у найважливіші моменти вечора, а важкий дим під час першого танцю зробив його по-справжньому казковим. Окремо хочемо подякувати спеціалісту — усе було організовано професійно, вчасно та без жодних хвилювань з нашого боку. Саме такі деталі роблять весілля незабутнім! Рекомендуємо від душі.</p><hr><b>Марія та Василь</b><small>Весілля · Жовтень 2024</small></figure>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<div class="contact tilt reveal">
+    <div>
+<span class="sec-tag">Контакти</span>
+<h2 class="contact-title">Створімо момент, який запам’ятається назавжди.</h2>
+<p class="contact-lead">Залиште заявку — ми зв’яжемося з вами протягом кількох годин, обговоримо деталі й підберемо пакет.</p>
+<div class="c-item"><small>Телефон</small><a href="tel:+380975403637">+38 (097) 540-36-37</a></div>
+<div class="c-item"><small>Email</small><a href="mailto:weddingservice3637@gmail.com">weddingservice3637@gmail.com</a></div>
+<div class="c-item"><small>Географія</small><span> Чернівці · Львів · Івано-Франківськ</span></div>
+</div>
+<form id="wedding-form">
+<input type="hidden" name="access_key" value="a77c66d6-c373-4168-9075-7c7a538365cc">
+<input type="hidden" name="subject" value="Нова заявка з сайту Wedding SERVICE">
+<input type="hidden" name="from_name" value="Wedding SERVICE">
+<input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+<div class="row">
+<div class="fg"><label for="f-name">Ваше ім'я</label><input id="f-name" class="fi" type="text" name="Ім'я" placeholder="Наприклад: Оксана" required></div>
+<div class="fg"><label for="f-tel">Телефон</label><input id="f-tel" class="fi" type="tel" name="Телефон" placeholder="+38 (067) 000-00-00" required></div>
+</div>
+<div class="row">
+<div class="fg"><label for="f-date">Дата весілля</label><input id="f-date" class="fi" type="date" name="Дата весілля" required></div>
+<div class="fg"><label for="f-city">Місто</label><input id="f-city" class="fi" type="text" name="Місто" placeholder="Де відбудеться захід?" required></div>
+</div>
+<div class="fg"><label for="f-pack">Пакет</label>
+<select id="f-pack" class="fi" name="Пакет" required>
+<option value="" disabled selected>Оберіть пакет</option>
+<option value="Романтик — від 8 000 грн">Романтик — від 8 000 грн</option>
+<option value="Казка — від 14 800 грн">Казка — від 14 800 грн</option>
+<option value="Гранд-шоу — від 20 500 грн">Гранд-шоу — від 20 500 грн</option>
+<option value="Індивідуальний">Індивідуальний</option>
+</select></div>
+<div class="fg"><label for="f-msg">Побажання</label><textarea id="f-msg" class="fi" name="Побажання" rows="3" placeholder="Розкажіть про ваші очікування..."></textarea></div>
+<button type="submit" class="btn btn-primary" style="width:100%;margin-top:.6rem">Надіслати заявку</button>
+<p class="note">Надсилаючи заявку, ви погоджуєтесь на обробку контактних даних для зв'язку з вами.</p>
+<div class="alert" id="alert-success"></div>
+</form>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<a href="#hero" class="logo" aria-label="WEDDING SERVICE"><span class="logo-rings"><span class="ring-a"></span><span class="ring-b"></span></span><span class="logo-txt"><b>WEDDING SERVICE</b><small>Effects</small></span></a>
+<p class="f-quote">Створюємо атмосферу. Ви створюєте спогади.</p>
+<div class="social">
+<a href="https://www.instagram.com/wedding_service.cv" target="_blank" rel="noopener">Instagram</a>
+<a href="#" target="_blank" rel="noopener">Facebook</a>
+<a href="https://t.me/+380975403637" target="_blank" rel="noopener">Telegram</a>
+</div>
+<div class="copy">© 2026 Wedding Service. Всі права захищені.</div>
+</div>
+</footer>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+// Realistic gold wedding rings (same in header and footer)
+const ringsSVG=n=>`<svg viewBox="0 0 88 60" width="100%" height="100%" aria-hidden="true">
+<defs>
+<linearGradient id="rg${n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF3D6"/><stop offset=".3" stop-color="#E5C388"/><stop offset=".55" stop-color="#B8904F"/><stop offset=".8" stop-color="#EBCB8E"/><stop offset="1" stop-color="#7A5C2C"/></linearGradient>
+<linearGradient id="ri${n}" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#A37F3F"/><stop offset="1" stop-color="#4A3618"/></linearGradient>
+<linearGradient id="gm${n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#cfe3ee"/><stop offset="1" stop-color="#8fb0c4"/></linearGradient>
+<clipPath id="cp${n}"><rect x="34" y="33" width="16" height="30"/></clipPath>
+<g id="ra${n}">
+<path fill-rule="evenodd" fill="url(#rg${n})" d="M10 33a20 22 0 1 0 40 0a20 22 0 1 0-40 0zM15.5 33a14.5 16.5 0 1 0 29 0a14.5 16.5 0 1 0-29 0z"/>
+<ellipse cx="30" cy="33" rx="14.5" ry="16.5" fill="none" stroke="url(#ri${n})" stroke-width="1.6"/>
+<path d="M12.6 26a18.5 20.5 0 0 1 11.1-12.3" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.2" stroke-linecap="round"/>
+<ellipse cx="30" cy="33" rx="20" ry="22" fill="none" stroke="#5E4520" stroke-opacity=".5" stroke-width=".5"/>
+</g>
+</defs>
+<use href="#ra${n}"/>
+<use href="#ra${n}" x="24"/>
+<use href="#ra${n}" clip-path="url(#cp${n})"/>
+<path d="M50 8H58L54 14ZM51.6 4H56.4L58 8H50Z" fill="url(#gm${n})" stroke="#E5C388" stroke-width=".5" stroke-linejoin="round"/>
+<path d="M51.6 4L52.6 8L54 14M56.4 4L55.4 8L54 14" fill="none" stroke="#8fb0c4" stroke-width=".4"/>
+<path class="spark" d="M60 1L60.6 3.4L63 4L60.6 4.6L60 7L59.4 4.6L57 4L59.4 3.4Z" fill="#fff"/>
+</svg>`;
+$$('.logo-rings').forEach((el,n)=>{el.innerHTML=ringsSVG(n)});
+// Header, menu, active link
+const header=$('#header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>50),{passive:true});
+const burger=$('#burger'),nav=$('#nav');
+const setMenu=o=>{nav.classList.toggle('open',o);burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o)};
+burger.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
+$$('a',nav).forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+const links=$$('.nav a');
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+$$('section[id]').forEach(s=>spy.observe(s));
+
+// Reveal on scroll
+const rv=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rv.unobserve(e.target)}}),{threshold:.12});
+$$('.reveal').forEach(el=>rv.observe(el));
+
+// Hero parallax (smooth reset through CSS transition)
+const heroBg=$('#heroBg'),hero=$('#hero');
+if(fine&&!calm){
+let raf=0;
+hero.addEventListener('mousemove',e=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{
+const r=hero.getBoundingClientRect();
+heroBg.style.setProperty('--px',((e.clientX-r.left)/r.width-.5)*-24+'px');
+heroBg.style.setProperty('--py',((e.clientY-r.top)/r.height-.5)*-16+'px')})});
+hero.addEventListener('mouseleave',()=>{heroBg.style.setProperty('--px','0px');heroBg.style.setProperty('--py','0px')});
+}
+
+// 3D Card tilt effect
+if(fine && !calm){
+    $$('.tilt').forEach(card => {
+        let raf = null;
+        
+        card.addEventListener('mousemove', e => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+                const r = card.getBoundingClientRect();
+                const x = e.clientX - r.left;
+                const y = e.clientY - r.top;
+                
+                card.style.setProperty('--mx', x + 'px');
+                card.style.setProperty('--my', y + 'px');
+                
+                const isContact = card.classList.contains('contact');
+                // Для контактів робимо менший кут (3 градуси), для карток — більший (10)
+                const maxTilt = isContact ? 3 : 10;
+                
+                const rotateX = ((y / r.height) - 0.5) * -maxTilt;
+                const rotateY = ((x / r.width) - 0.5) * maxTilt;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            cancelAnimationFrame(raf);
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+    });
+}
+
+// Carousel
+(function(){
+const box = $('#carousel');
+const slides = $$('.slide', box);
+const n = slides.length;
+const bar = $('#bar');
+const w = () => box.offsetWidth || 1;
+
+let i = 0;
+let off = 0;
+let v = 0;
+let drag = false;
+let moved = false;
+let paused = false;
+let timer = null;
+let sx = 0, sy = 0;                    // стартові координати
+let lx = 0, lt = 0;                    // останні координати/час для швидкості
+let lockedAxis = null;                 // 'x' | 'y' | null
+let activePointerId = null;
+
+// ===== РЕНДЕР =====
+function render(){
+    slides.forEach((s, k) => {
+        let d = ((k - i + n/2) % n + n) % n - n/2 + off;
+        const a = Math.abs(d);
+        const mobile = innerWidth < 769;
+        s.style.transform = `translateX(${d * (mobile ? 86 : 60)}%) scale(${Math.max(.78, 1 - a*.12)})`;
+        s.style.opacity = Math.max(0, 1 - a*.42);
+        s.style.filter = mobile ? 'none' : `brightness(${Math.max(.32, 1 - a*.5)})`;
+        s.style.zIndex = 20 - Math.round(a*3);
+        s.classList.toggle('active', a < .35);
+    });
+    bar.style.width = ((i + 1) / n * 100) + '%';
+}
+
+function go(k){
+    i = ((k % n) + n) % n;
+    off = 0;
+    render();
+}
+
+// ===== АВТОПЛЕЙ =====
+function play(){
+    stop();
+    if (calm) return;
+    if (window.matchMedia('(max-width:1024px)').matches) return;
+    timer = setInterval(() => { if (!paused) go(i + 1); }, 5200);
+}
+function stop(){ clearInterval(timer); }
+
+// ===== СКИДАННЯ СТАНУ =====
+function resetDrag(){
+    drag = false;
+    lockedAxis = null;
+    off = 0;
+    slides.forEach(s => s.classList.remove('drag'));
+    box.classList.remove('dragging');
+    if (activePointerId !== null){
+        try { box.releasePointerCapture(activePointerId); } catch(e){}
+        activePointerId = null;
+    }
+}
+
+// ===== POINTER DOWN =====
+box.addEventListener('pointerdown', e => {
+    if (e.target.closest('.c-btn')) return;            // клік по стрілці
+    if (e.pointerType === 'mouse' && e.button !== 0) return;  // тільки ЛКМ
+
+    sx = lx = e.clientX;
+    sy = e.clientY;
+    lt = performance.now();
+    v = 0;
+    drag = false;
+    moved = false;
+    lockedAxis = null;
+    paused = true;
+    activePointerId = e.pointerId;
+    // НЕ захоплюємо pointer і НЕ додаємо .drag — чекаємо напрямок
+});
+
+// ===== POINTER MOVE =====
+box.addEventListener('pointermove', e => {
+    if (e.pointerId !== activePointerId) return;
+
+    const dx = e.clientX - sx;
+    const dy = e.clientY - sy;
+
+    // ===== КРОК 1: ВИЗНАЧАЄМО НАПРЯМОК (перші 8px) =====
+    if (!lockedAxis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)){
+        lockedAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+
+        if (lockedAxis === 'x'){
+            // ─── ГОРИЗОНТАЛЬНИЙ СВАЙП — перехоплюємо
+            drag = true;
+            box.classList.add('dragging');
+            slides.forEach(s => s.classList.add('drag'));
+            try { box.setPointerCapture(e.pointerId); } catch(err){}
+        } else {
+            // ─── ВЕРТИКАЛЬНИЙ СВАЙП — відпускаємо, сторінка скролиться
+            drag = false;
+            activePointerId = null;                    // ⬅️ більше не реагуємо на цей жест
+            paused = false;
+            return;
+        }
+    }
+
+    // Якщо ще не визначились — нічого не робимо
+    if (lockedAxis !== 'x' || !drag) return;
+
+    // ===== КРОК 2: ГОРИЗОНТАЛЬНИЙ DRAG =====
+    if (Math.abs(dx) > 6) moved = true;
+
+    const t = performance.now();
+    v = (e.clientX - lx) / Math.max(1, t - lt);
+    lx = e.clientX;
+    lt = t;
+
+    off = dx / (w() * .55);
+    render();
+
+    // Блокуємо нативний скрол браузера (щоб не було "ривків")
+    if (e.cancelable) e.preventDefault();
+}, { passive: false });
+
+// ===== END =====
+function end(e){
+    if (e.pointerId !== undefined && e.pointerId !== activePointerId) return;
+    if (!drag){
+        lockedAxis = null;
+        activePointerId = null;
+        setTimeout(() => { paused = false; moved = false; }, 50);
+        return;
+    }
+
+    const wasHorizontal = lockedAxis === 'x';
+
+    drag = false;
+    slides.forEach(s => s.classList.remove('drag'));
+    box.classList.remove('dragging');
+    if (activePointerId !== null){
+        try { box.releasePointerCapture(activePointerId); } catch(err){}
+        activePointerId = null;
+    }
+
+    if (wasHorizontal){
+        const shift = Math.round(-off - v * .6);
+        go(i + shift);
+    }
+    off = 0;
+    lockedAxis = null;
+    setTimeout(() => { paused = false; moved = false; }, 50);
+}
+
+box.addEventListener('pointerup', end);
+box.addEventListener('pointercancel', end);
+box.addEventListener('lostpointercapture', end);
+
+box.addEventListener('mouseenter', () => paused = true);
+box.addEventListener('mouseleave', () => { if (!drag) paused = false; });
+
+// ===== КНОПКИ =====
+$('#prev').addEventListener('click', () => {
+    go(i - 1);
+    paused = true;
+    setTimeout(() => paused = false, 3000);
+});
+$('#next').addEventListener('click', () => {
+    go(i + 1);
+    paused = true;
+    setTimeout(() => paused = false, 3000);
+});
+
+// ===== КЛІК ПО СЛАЙДУ (модалка) =====
+slides.forEach((s, k) => s.addEventListener('click', () => {
+    if (moved) return;
+    if (k === i) openModal($('img', s).src);
+    else go(k);
+}));
+
+render();
+play();
+window.carouselPause = v => { paused = v; };
+
+let resizeTimer;
+addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(render, 150);
+});
+})();
+
+// Photo modal
+const modal=$('#modal'),mImg=$('#modalImg');
+function openModal(src){
+    mImg.src=src;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    window.carouselPause&&window.carouselPause(true);
+    setTimeout(()=>modal.querySelector('.modal-x').focus(), 50);
+}
+function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';window.carouselPause&&window.carouselPause(false)}
+$$('[data-close]',modal).forEach(el=>el.addEventListener('click',closeModal));
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+// Package selection from pricing cards
+$$('[data-package]').forEach(btn=>btn.addEventListener('click',()=>{
+const sel=$('#wedding-form select[name="Пакет"]');if(!sel)return;
+sel.value=btn.dataset.package;sel.classList.remove('highlight');void sel.offsetWidth;sel.classList.add('highlight');
+setTimeout(()=>sel.classList.remove('highlight'),2600)}));
+// Дата весілля: не раніше сьогодні
+const fDate=$('#f-date');
+if(fDate){const t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());fDate.min=t.toISOString().slice(0,10)}
+// Form → Web3Forms
+$('#wedding-form').addEventListener('submit',async e=>{
+e.preventDefault();
+const form=e.target,btn=$('button[type="submit"]',form),box=$('#alert-success'),txt=btn.textContent;
+btn.disabled=true;btn.textContent='Надсилаємо...';
+try{
+const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form)))});
+const d=await r.json();
+if(r.ok&&d.success){box.textContent='✓ Заявку надіслано! Зателефонуємо незабаром.';box.style.borderColor='var(--gold)';box.style.background='rgba(201,161,93,.12)';form.reset()}
+else throw new Error(d.message||'Помилка відправки');
+}catch(err){box.textContent='✕ Не вдалося надіслати. Спробуйте ще раз або зателефонуйте нам.';box.style.borderColor='#c0392b';box.style.background='rgba(192,57,43,.14)'}
+finally{box.style.display='block';btn.disabled=false;btn.textContent=txt;setTimeout(()=>box.style.display='none',6000)}
+});
+</script>
+</body>
+</html>
